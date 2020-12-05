@@ -1,30 +1,10 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
+
+	"github.com/mbonnafon/AdventOfCode/helpers"
 )
-
-func readFile(fileName string) ([]int, error) {
-	var listOfElements []int
-	f, err := os.Open(fileName)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		lineToInt, err := strconv.Atoi(scanner.Text())
-		if err != nil {
-			return nil, err
-		}
-		listOfElements = append(listOfElements, lineToInt)
-	}
-	return listOfElements, nil
-}
 
 func fuelCalcul(mass int) int {
 	neededFuel := (mass/3 - 2)
@@ -34,11 +14,24 @@ func fuelCalcul(mass int) int {
 	return 0
 }
 
-func main() {
-	listOfElements, _ := readFile("./input.txt")
+func pt1(lines []int) int {
 	var fuel int
-	for _, mass := range listOfElements {
+	for _, mass := range lines {
+		fuel = fuel + (mass/3 - 2)
+	}
+	return fuel
+}
+
+func pt2(lines []int) int {
+	var fuel int
+	for _, mass := range lines {
 		fuel = fuel + fuelCalcul(mass)
 	}
-	fmt.Println(fuel)
+	return fuel
+}
+
+func main() {
+	lines, _ := helpers.IntLines("./input.txt")
+	fmt.Println("Part 1. sum of the fuel requirements is:", pt1(lines))
+	fmt.Println("Part 2. sum of the fuel requirements is:", pt2(lines))
 }

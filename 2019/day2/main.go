@@ -63,7 +63,18 @@ func bruteforceList(listInputInt []int) int {
 	return 0
 }
 
+func pt1(lines []int) int {
+	return 0
+}
+func pt2(lines []int) int {
+	return 0
+}
+
 func main() {
+	// TODO
+	// lines, _ := helpers.IntLines("./input.txt")
+	// fmt.Println("Part 1. value left at position 0 after the program halts is:", pt1(lines))
+	// fmt.Println("Part 2. :", pt2(lines))
 	listInputInt := readFileToIntList("./input2.txt")
 	fmt.Println(processList(listInputInt))
 	fmt.Println(bruteforceList(listInputInt))
