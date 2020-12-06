@@ -6,7 +6,7 @@ import (
 	"github.com/mbonnafon/AdventOfCode/helpers"
 )
 
-func pt1(target int, lines []int) int {
+func pt1(lines []int, target int) int {
 	var existingValues = make(map[int]bool)
 	for _, v := range lines {
 		if existingValues[target-v] {
@@ -17,7 +17,7 @@ func pt1(target int, lines []int) int {
 	return 0
 }
 
-func pt2(target int, lines []int) int {
+func pt2(lines []int, target int) int {
 	var existingValues = make(map[int]bool)
 	for _, v := range lines {
 		existingValues[v] = true
@@ -36,6 +36,6 @@ func pt2(target int, lines []int) int {
 func main() {
 	const target = 2020
 	lines, _ := helpers.IntLines("./input.txt")
-	fmt.Printf("Part 1. the product of the two entries that sum to %d is: %d\n", target, pt1(target, lines))
-	fmt.Printf("Part 2. the product of the three entries that sum %d is: %d\n", target, pt2(target, lines))
+	fmt.Printf("Part 1. the product of the two entries that sum to %d is: %d\n", target, pt1(lines, target))
+	fmt.Printf("Part 2. the product of the three entries that sum %d is: %d\n", target, pt2(lines, target))
 }
