@@ -1,4 +1,2 @@
 # AdventOfCode
-Advent of code solutions
-
-URL= https://adventofcode.com/2019
+Here are my Advent of code solutions https://adventofcode.com/
