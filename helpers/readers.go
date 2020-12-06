@@ -64,5 +64,8 @@ func StringGroupOfLines(fileName string) ([]string, error) {
 			}
 		}
 	}
+	if buff != "" {
+		listOfElements = append(listOfElements, buff)
+	}
 	return listOfElements, nil
 }
