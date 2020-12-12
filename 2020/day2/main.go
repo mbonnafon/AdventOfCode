@@ -12,6 +12,12 @@ var (
 	password string
 )
 
+func main() {
+	lines, _ := helpers.StringLines("./input.txt")
+	fmt.Printf("Part1. %d passwords are valid\n", pt1(lines))
+	fmt.Printf("Part2. %d passwords are valid\n", pt2(lines))
+}
+
 func pt1(lines []string) int {
 	var count int
 	for _, l := range lines {
@@ -37,10 +43,4 @@ func pt2(lines []string) int {
 		}
 	}
 	return count
-}
-
-func main() {
-	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Printf("Part1. %d passwords are valid\n", pt1(lines))
-	fmt.Printf("Part2. %d passwords are valid\n", pt2(lines))
 }

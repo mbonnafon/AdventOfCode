@@ -26,6 +26,12 @@ func (s Slope) countTrees(lines []string) int {
 	return count
 }
 
+func main() {
+	lines, _ := helpers.StringLines("./input.txt")
+	fmt.Printf("Part1. I encountered %d trees\n", pt1(lines))
+	fmt.Printf("Part2. I encountered %d trees\n", pt2(lines))
+}
+
 func pt1(lines []string) int {
 	slope := Slope{
 		x: 3,
@@ -62,10 +68,4 @@ func pt2(lines []string) int {
 		count = count * s.countTrees(lines)
 	}
 	return count
-}
-
-func main() {
-	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Printf("Part1. I encountered %d trees\n", pt1(lines))
-	fmt.Printf("Part2. I encountered %d trees\n", pt2(lines))
 }

@@ -12,6 +12,41 @@ type Command struct {
 	executed  bool
 }
 
+func main() {
+	lines, _ := helpers.StringLines("./input.txt")
+	fmt.Println("Part 1. The accumulator value is:", pt1(lines))
+	fmt.Println("Part 2. The accumulator value after the program terminates is:", pt2(lines))
+}
+
+func pt1(lines []string) int {
+	commands := parseCommands(lines)
+	return calcAccVal(commands, true)
+}
+
+func pt2(lines []string) int {
+	var c = make([]Command, len(lines))
+	commands := parseCommands(lines)
+	for i, command := range commands {
+		copy(c, commands)
+		if command.operation == "jmp" {
+			c[i].operation = "nop"
+			if acc := calcAccVal(c, false); acc > 0 {
+				return acc
+			}
+			continue
+		}
+		if command.operation == "nop" {
+			copy(c, commands)
+			c[i].operation = "jmp"
+			if acc := calcAccVal(c, false); acc > 0 {
+				return acc
+			}
+			continue
+		}
+	}
+	return 0
+}
+
 func parseCommands(lines []string) []Command {
 	var operation string
 	var val int
@@ -49,39 +84,4 @@ func calcAccVal(commands []Command, allowDup bool) int {
 		}
 	}
 	return accumulator
-}
-
-func pt1(lines []string) int {
-	commands := parseCommands(lines)
-	return calcAccVal(commands, true)
-}
-
-func pt2(lines []string) int {
-	var c = make([]Command, len(lines))
-	commands := parseCommands(lines)
-	for i, command := range commands {
-		copy(c, commands)
-		if command.operation == "jmp" {
-			c[i].operation = "nop"
-			if acc := calcAccVal(c, false); acc > 0 {
-				return acc
-			}
-			continue
-		}
-		if command.operation == "nop" {
-			copy(c, commands)
-			c[i].operation = "jmp"
-			if acc := calcAccVal(c, false); acc > 0 {
-				return acc
-			}
-			continue
-		}
-	}
-	return 0
-}
-
-func main() {
-	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. The accumulator value is:", pt1(lines))
-	fmt.Println("Part 2. The accumulator value after the program terminates is:", pt2(lines))
 }

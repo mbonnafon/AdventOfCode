@@ -18,6 +18,32 @@ type Passport struct {
 	PassportID     string
 }
 
+func main() {
+	s, _ := helpers.StringGroupOfLines("./input.txt")
+	fmt.Printf("Part1. %d passports are valid\n", pt1(s))
+	fmt.Printf("Part2. %d passports are valid\n", pt2(s))
+}
+
+func pt1(s []string) int {
+	var count int
+	for _, l := range s {
+		if genPassport(l).validate() {
+			count++
+		}
+	}
+	return count
+}
+
+func pt2(s []string) int {
+	var count int
+	for _, l := range s {
+		if genPassport(l).validateFields() {
+			count++
+		}
+	}
+	return count
+}
+
 func genPassport(s string) Passport {
 	field := make(map[string]string, len(s))
 	for _, p := range strings.Split(s, " ") {
@@ -101,30 +127,4 @@ func validateEyeColor(s string) bool {
 
 func validatePassportID(s string) bool {
 	return regexp.MustCompile("^[0-9]{9}$").MatchString(s)
-}
-
-func pt1(s []string) int {
-	var count int
-	for _, l := range s {
-		if genPassport(l).validate() {
-			count++
-		}
-	}
-	return count
-}
-
-func pt2(s []string) int {
-	var count int
-	for _, l := range s {
-		if genPassport(l).validateFields() {
-			count++
-		}
-	}
-	return count
-}
-
-func main() {
-	s, _ := helpers.StringGroupOfLines("./input.txt")
-	fmt.Printf("Part1. %d passports are valid\n", pt1(s))
-	fmt.Printf("Part2. %d passports are valid\n", pt2(s))
 }

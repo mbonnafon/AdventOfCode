@@ -13,13 +13,28 @@ type Bag struct {
 	count int
 }
 
-func bagFromString(s string) Bag {
-	b := strings.Split(s, " ")
-	i, _ := strconv.Atoi(b[0])
-	return Bag{
-		color: strings.Join(b[1:len(b)-1], " "),
-		count: i,
+func main() {
+	const target = "shiny gold"
+	lines, _ := helpers.StringLines("./input.txt")
+	fmt.Printf("Part 1. One %s can hold %d bags colors\n", target, pt1(lines, target))
+	fmt.Printf("Part 2. %d individual bags are required inside your single %s\n", pt2(lines, target), target)
+}
+
+func pt1(lines []string, target string) int {
+	var count int
+	bags := parseBags(lines)
+	for bag := range bags {
+		if canHoldTarget(bags, bag, target) {
+			count++
+			continue
+		}
 	}
+	return count
+}
+
+func pt2(lines []string, target string) int {
+	bags := parseBags(lines)
+	return countHoldableTarget(bags, target, target) - 1
 }
 
 func parseBags(lines []string) map[string][]Bag {
@@ -51,16 +66,13 @@ func canHoldTarget(bags map[string][]Bag, current, target string) bool {
 	return false
 }
 
-func pt1(lines []string, target string) int {
-	var count int
-	bags := parseBags(lines)
-	for bag := range bags {
-		if canHoldTarget(bags, bag, target) {
-			count++
-			continue
-		}
+func bagFromString(s string) Bag {
+	b := strings.Split(s, " ")
+	i, _ := strconv.Atoi(b[0])
+	return Bag{
+		color: strings.Join(b[1:len(b)-1], " "),
+		count: i,
 	}
-	return count
 }
 
 func countHoldableTarget(bags map[string][]Bag, current, target string) int {
@@ -69,16 +81,4 @@ func countHoldableTarget(bags map[string][]Bag, current, target string) int {
 		count = count + bag.count*countHoldableTarget(bags, bag.color, target)
 	}
 	return count
-}
-
-func pt2(lines []string, target string) int {
-	bags := parseBags(lines)
-	return countHoldableTarget(bags, target, target) - 1
-}
-
-func main() {
-	const target = "shiny gold"
-	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Printf("Part 1. One %s can hold %d bags colors\n", target, pt1(lines, target))
-	fmt.Printf("Part 2. %d individual bags are required inside your single %s\n", pt2(lines, target), target)
 }

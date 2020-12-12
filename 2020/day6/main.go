@@ -7,6 +7,28 @@ import (
 	"github.com/mbonnafon/AdventOfCode/helpers"
 )
 
+func main() {
+	lines, _ := helpers.StringGroupOfLines("./input.txt")
+	fmt.Println("Part 1. :", pt1(lines))
+	fmt.Println("Part 2. :", pt2(lines))
+}
+
+func pt1(lines []string) int {
+	var count int
+	for _, l := range lines {
+		count = count + countGroupAnswer(l)
+	}
+	return count
+}
+
+func pt2(lines []string) int {
+	var count int
+	for _, l := range lines {
+		count = count + countEveryoneAnswer(l)
+	}
+	return count
+}
+
 func countGroupAnswer(s string) int {
 	m := make(map[rune]int)
 	for _, p := range strings.Split(s, " ") {
@@ -32,26 +54,4 @@ func countEveryoneAnswer(s string) int {
 		}
 	}
 	return count
-}
-
-func pt1(lines []string) int {
-	var count int
-	for _, l := range lines {
-		count = count + countGroupAnswer(l)
-	}
-	return count
-}
-
-func pt2(lines []string) int {
-	var count int
-	for _, l := range lines {
-		count = count + countEveryoneAnswer(l)
-	}
-	return count
-}
-
-func main() {
-	lines, _ := helpers.StringGroupOfLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(lines))
-	fmt.Println("Part 2. :", pt2(lines))
 }
