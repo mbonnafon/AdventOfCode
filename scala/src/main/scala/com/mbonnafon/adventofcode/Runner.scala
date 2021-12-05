@@ -6,7 +6,8 @@ object Runner extends App {
 
   def puzzleMap = Map(
     (2021, 1) -> year2021.Day01,
-    (2021, 2) -> year2021.Day02
+    (2021, 2) -> year2021.Day02,
+    (2021, 3) -> year2021.Day03
   )
 
   puzzleMap.get(year, day) match {
