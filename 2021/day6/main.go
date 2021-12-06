@@ -37,6 +37,7 @@ func pt2(days int, lines []string) int {
 	for _, v := range helpers.StringSliceToIntSlice(lines) {
 		lanternfishs[v]++
 	}
+
 	for i := 0; i < days; i++ {
 		m := make(map[int]int)
 		for k, v := range lanternfishs {
