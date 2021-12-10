@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(helpers.ToIntSlice(lines)))
-	fmt.Println("Part 2. :", pt2(helpers.ToIntSlice(lines)))
+	lines, _ := helpers.IntLines("./input.txt")
+	fmt.Println("Part 1. :", pt1(lines))
+	fmt.Println("Part 2. :", pt2(lines))
 }
 
 func pt1(lines []int) (counter int) {
