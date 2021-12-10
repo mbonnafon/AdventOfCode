@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"sort"
-	"strconv"
 	"strings"
 
 	"github.com/mbonnafon/AdventOfCode/helpers"
@@ -22,43 +21,24 @@ func main() {
 	fmt.Println("Part 2. :", pt2(grid))
 }
 
-type Grid [][]string
-
 func pt1(grid Grid) int {
 	var riskLevels int
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[i]); j++ {
-			ref := grid[i][j]
-			//up
-			if (i > 0) && grid[i-1][j] <= ref {
-				continue
+			if grid.isSmallestComparedToNeigh(i, j) {
+				riskLevels += (helpers.ToInt(grid[i][j]) + 1)
 			}
-			//down
-			if ((i + 1) < len(grid)) && grid[i+1][j] <= ref {
-				continue
-			}
-			//left
-			if (j > 0) && grid[i][j-1] <= ref {
-				continue
-			}
-			//right
-			if ((j + 1) < len(grid[i])) && grid[i][j+1] <= ref {
-				continue
-			}
-			s, _ := strconv.Atoi(ref)
-			riskLevels += (s + 1)
 		}
 	}
 	return riskLevels
 }
 
 func pt2(grid Grid) int {
-	var values []int
+	var totalSize []int
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[i]); j++ {
-			s := grid.bassinRec(i, j)
-			if s != 0 {
-				values = append(values, s)
+			if size := grid.bassinRec(i, j); size != 0 {
+				totalSize = append(totalSize, size)
 			}
 		}
 	}
@@ -69,7 +49,30 @@ func pt2(grid Grid) int {
 			count *= v
 		}
 		return count
-	}(values)
+	}(totalSize)
+}
+
+type Grid [][]string
+
+func (g Grid) isSmallestComparedToNeigh(i, j int) bool {
+	ref := g[i][j]
+	//up
+	if (i > 0) && g[i-1][j] <= ref {
+		return false
+	}
+	//down
+	if ((i + 1) < len(g)) && g[i+1][j] <= ref {
+		return false
+	}
+	//left
+	if (j > 0) && g[i][j-1] <= ref {
+		return false
+	}
+	//right
+	if ((j + 1) < len(g[i])) && g[i][j+1] <= ref {
+		return false
+	}
+	return true
 }
 
 // It's a DFS and mark nodes as visited with a 9
