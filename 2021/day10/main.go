@@ -13,8 +13,7 @@ func main() {
 	fmt.Println("Part 2. :", pt2(lines))
 }
 
-func pt1(lines []string) int {
-	var score int
+func pt1(lines []string) (score int) {
 	for _, l := range lines {
 		switch processCorruptedLine(l) {
 		case ")":
@@ -27,7 +26,7 @@ func pt1(lines []string) int {
 			score += 25137
 		}
 	}
-	return score
+	return
 }
 
 func pt2(lines []string) int {
@@ -44,7 +43,7 @@ func pt2(lines []string) int {
 	}
 	sort.Ints(scores)
 
-	return scores[len(scores)/2]
+	return helpers.Median(scores)
 }
 
 func processCorruptedLine(l string) string {
@@ -77,9 +76,9 @@ func processCorruptedLine(l string) string {
 	return ""
 }
 
-func scoreIncompleteLine(l string) int {
+func scoreIncompleteLine(line string) int {
 	var stack helpers.Stack
-	for _, c := range l {
+	for _, c := range line {
 		symbol := string(c)
 		if symbol == "(" || symbol == "{" || symbol == "[" || symbol == "<" {
 			stack.Push(symbol)
