@@ -13,51 +13,26 @@ type Entry struct {
 	DigitOutputs   []string
 }
 
-func (e Entry) isPresent(s string) bool {
-	for _, digit := range e.SignalPatterns {
-		if s == digit {
-			return true
-		}
-	}
-	return false
-}
-
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(lines))
-	fmt.Println("Part 2. :", pt2(lines))
+	fmt.Println("Part 1. :", pt1(parseEntries(lines)))
+	fmt.Println("Part 2. :", pt2(parseEntries(lines)))
 }
 
-func pt1(lines []string) int {
-	counter := make(map[int]int)
-	for _, entry := range parseEntries(lines) {
+func pt1(entries []Entry) (counter int) {
+	for _, entry := range entries {
 		for _, digit := range entry.DigitOutputs {
-			if !entry.isPresent(digit) {
-				continue
-			}
-			switch len(digit) {
-			case 2:
-				counter[2]++
-			case 3:
-				counter[3]++
-			case 4:
-				counter[4]++
-			case 7:
-				counter[7]++
+			if len(digit) == 2 || len(digit) == 3 || len(digit) == 4 || len(digit) == 7 {
+				counter++
 			}
 		}
 	}
-	return func(c map[int]int) (counter int) {
-		for _, v := range c {
-			counter += v
-		}
-		return
-	}(counter)
+	return
 }
 
-func pt2(lines []string) int {
+func pt2(entries []Entry) int {
 	var score int
-	for _, entry := range parseEntries(lines) {
+	for _, entry := range entries {
 		wires := make(map[int][]string)
 		for _, digit := range entry.SignalPatterns {
 			wires[len(digit)] = append(wires[len(digit)], digit)
