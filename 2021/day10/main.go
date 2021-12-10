@@ -51,15 +51,11 @@ func processCorruptedLine(l string) string {
 	var stack helpers.Stack
 	for _, c := range l {
 		symbol := string(c)
+		if symbol == "(" || symbol == "{" || symbol == "[" || symbol == "<" {
+			stack.Push(symbol)
+			continue
+		}
 		switch symbol {
-		case "(":
-			stack.Push(symbol)
-		case "{":
-			stack.Push(symbol)
-		case "[":
-			stack.Push(symbol)
-		case "<":
-			stack.Push(symbol)
 		case ")":
 			if stack.Pop() != "(" {
 				return symbol
@@ -90,7 +86,6 @@ func scoreIncompleteLine(l string) int {
 			continue
 		}
 		if symbol == stack.Pop() {
-			fmt.Println("correct")
 			continue
 		}
 	}
