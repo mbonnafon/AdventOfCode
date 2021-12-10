@@ -9,49 +9,46 @@ import (
 
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
-	crabsPos := helpers.StringSliceToIntSlice(strings.Split(lines[0], ","))
+	crabsPos := helpers.ToIntSlice(strings.Split(lines[0], ","))
 	fmt.Println("Part 1. :", pt1(crabsPos))
 	fmt.Println("Part 2. :", pt2(crabsPos))
 }
 
-func pt1(crabsPos []int) int {
-	var score int
+func pt1(crabsPos []int) (score int) {
 	median := helpers.Median(crabsPos)
-	for _, v := range crabsPos {
-		if v == median {
+	for _, pos := range crabsPos {
+		if pos == median {
 			continue
 		}
-		if v > median {
-			score += (v - median)
+		if pos > median {
+			score += (pos - median)
 			continue
 		}
-		score += (median - v)
+		score += (median - pos)
 	}
-	return score
+	return
 }
 
-func pt2(crabsPos []int) int {
-	var score int
+func pt2(crabsPos []int) (score int) {
 	mean := helpers.Mean(crabsPos)
-	for _, v := range crabsPos {
-		if v == mean {
+	for _, pos := range crabsPos {
+		if pos == mean {
 			continue
 		}
-		if v > mean {
-			score += rec(mean, v)
+		if pos > mean {
+			score += burnFuel(mean, pos)
 			continue
 		}
-		score += rec(v, mean)
+		score += burnFuel(pos, mean)
 	}
-	return score
+	return
 }
 
-func rec(start, end int) int {
-	var score int
+func burnFuel(start, end int) (score int) {
 	acc := 1
 	for i := start; i < end; i++ {
 		score += acc
 		acc++
 	}
-	return score
+	return
 }
