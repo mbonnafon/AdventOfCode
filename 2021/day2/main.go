@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 
 	"github.com/mbonnafon/AdventOfCode/helpers"
@@ -14,12 +13,12 @@ func main() {
 	fmt.Println("Part 2. :", pt2(lines))
 }
 
-func pt1(lines []string) int {
+func pt1(commands []string) int {
 	var horizontal, depth int
-	for _, line := range lines {
+	for _, line := range commands {
 		s := strings.Split(line, " ")
 		direction := s[0]
-		increment, _ := strconv.Atoi(s[1])
+		increment := helpers.ToInt(s[1])
 		switch direction {
 		case "forward":
 			horizontal += increment
@@ -32,12 +31,12 @@ func pt1(lines []string) int {
 	return horizontal * depth
 }
 
-func pt2(lines []string) int {
+func pt2(commands []string) int {
 	var horizontal, depth, aim int
-	for _, line := range lines {
+	for _, line := range commands {
 		s := strings.Split(line, " ")
 		direction := s[0]
-		increment, _ := strconv.Atoi(s[1])
+		increment := helpers.ToInt(s[1])
 		switch direction {
 		case "down":
 			aim += increment

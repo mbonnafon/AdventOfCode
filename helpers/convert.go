@@ -2,6 +2,11 @@ package helpers
 
 import "strconv"
 
+func ToInt(s string) int {
+	i, _ := strconv.Atoi(s)
+	return i
+}
+
 func ToIntSlice(s []string) []int {
 	var intSlice []int
 	for _, v := range s {
