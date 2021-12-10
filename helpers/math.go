@@ -45,6 +45,18 @@ func IsOdd(i int) bool {
 	return true
 }
 
+// Transpose slice From (n x m) To (m x n)
+func Transpose(s [][]string) [][]string {
+	result := make([][]string, len(s[0]))
+	for i := 0; i < len(s[0]); i++ {
+		result[i] = make([]string, len(s))
+		for j := 0; j < len(s); j++ {
+			result[i][j] = s[j][i]
+		}
+	}
+	return result
+}
+
 // Rotate will rotate a n*n matrix of integers clockwise
 // implemented https://stackoverflow.com/a/35438327 as it's O(1)
 func Rotate(m [][]int) {

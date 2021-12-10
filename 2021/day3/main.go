@@ -3,30 +3,10 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/mbonnafon/AdventOfCode/helpers"
 )
-
-type Tuple struct {
-	Zero int
-	One  int
-}
-
-func (t Tuple) gamma() string {
-	if t.One > t.Zero {
-		return "1"
-	} else {
-		return "0"
-	}
-}
-
-func (t Tuple) epsilon() string {
-	if t.One > t.Zero {
-		return "0"
-	} else {
-		return "1"
-	}
-}
 
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
@@ -35,24 +15,22 @@ func main() {
 }
 
 func pt1(lines []string) int64 {
-	acc := make(map[int]*Tuple)
-	for _, l := range lines {
-		for b, i := range l {
-			if acc[b] == nil {
-				acc[b] = &Tuple{}
-			}
-			if string(i) == "0" {
-				acc[b].Zero++
-			} else {
-				acc[b].One++
-			}
-		}
+	var diagnosticReport [][]string
+	for _, v := range lines {
+		diagnosticReport = append(diagnosticReport, strings.Split(v, ""))
 	}
+
 	var gammaRates, epsilonRates string
-	for i := 0; i < len(acc); i++ {
-		gammaRates = gammaRates + acc[i].gamma()
-		epsilonRates = epsilonRates + acc[i].epsilon()
+	for _, binary := range helpers.Transpose(diagnosticReport) {
+		if max(binary) == "0" {
+			gammaRates = gammaRates + "0"
+			epsilonRates = epsilonRates + "1"
+			continue
+		}
+		gammaRates = gammaRates + "1"
+		epsilonRates = epsilonRates + "0"
 	}
+
 	gammaRate, _ := strconv.ParseInt(gammaRates, 2, 64)
 	epsilonRate, _ := strconv.ParseInt(epsilonRates, 2, 64)
 	return gammaRate * epsilonRate
@@ -99,6 +77,21 @@ func pt2(lines []string) int64 {
 	x, _ := strconv.ParseInt(oxygen[0], 2, 64)
 	y, _ := strconv.ParseInt(CO2Scrubber[0], 2, 64)
 	return x * y
+}
+
+func max(binary []string) string {
+	var zeroCounter, oneCounter int
+	for _, s := range binary {
+		if s == "0" {
+			zeroCounter++
+			continue
+		}
+		oneCounter++
+	}
+	if zeroCounter > oneCounter {
+		return "0"
+	}
+	return "1"
 }
 
 func find(lines []string, pos int) (int, int) {
