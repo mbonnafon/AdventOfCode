@@ -28,31 +28,28 @@ type Cell struct {
 
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(lines))
-	fmt.Println("Part 2. :", pt2(lines))
+	fmt.Println("Part 1. :", pt1(parseGame(lines)))
+	fmt.Println("Part 2. :", pt2(parseGame(lines)))
 }
 
-func pt1(lines []string) int {
-	g := parseGame(lines)
+func pt1(g Game) int {
 	return g.play(true)
 }
 
-func pt2(lines []string) int {
-	g := parseGame(lines)
+func pt2(g Game) int {
 	return g.play(false)
 }
 
 func parseGame(lines []string) Game {
 	g := Game{}
-	g.draws = func(line string) []int {
-		var s []int
+	g.draws = func(line string) (draws []int) {
 		for _, v := range strings.Split(line, ",") {
-			n, _ := strconv.Atoi(string(v))
-			s = append(s, n)
+			draws = append(draws, helpers.ToInt(v))
 		}
-		return s
+		return
 	}(lines[0])
 
+	// discard already processed draws
 	for i := 1; i < len(lines); i++ {
 		if lines[i] == "" {
 			continue
@@ -61,16 +58,15 @@ func parseGame(lines []string) Game {
 		b.grid = make([][]*Cell, 5)
 		for j := 0; j < 5; j++ {
 			b.grid[j] = func(line string) []*Cell {
-				var s []*Cell
-				line = space.ReplaceAllString(line, " ")
-				for _, v := range strings.Split(line, " ") {
-					n, err := strconv.Atoi(string(v))
-					if err != nil {
+				var cells []*Cell
+				for _, c := range strings.Split(line, " ") {
+					n, err := strconv.Atoi(string(c))
+					if err != nil { //hack to discard spaces
 						continue
 					}
-					s = append(s, &Cell{number: n, drawn: false})
+					cells = append(cells, &Cell{number: n, drawn: false})
 				}
-				return s
+				return cells
 			}(lines[i+j])
 		}
 		g.boards = append(g.boards, &b)
@@ -80,25 +76,24 @@ func parseGame(lines []string) Game {
 	return g
 }
 
-func (g Game) play(first bool) int {
-	var winnerScore int
-	for _, numb := range g.draws {
-		for _, b := range g.boards {
-			if b.winner {
+func (g Game) play(firstIsWinner bool) (winnerScore int) {
+	for _, draw := range g.draws {
+		for _, board := range g.boards {
+			if board.winner {
 				continue
 			}
-			b.updateBoard(numb)
-			if first && b.isWinner() {
-				winnerScore = numb * b.countPoints()
+			board.updateBoard(draw)
+			if firstIsWinner && board.isWinner() {
+				winnerScore = draw * board.countPoints()
 				return winnerScore
 			}
-			if !first && b.isWinner() {
-				winnerScore = numb * b.countPoints()
-				b.winner = true
+			if !firstIsWinner && board.isWinner() {
+				winnerScore = draw * board.countPoints()
+				board.winner = true
 			}
 		}
 	}
-	return winnerScore
+	return
 }
 
 func (b Board) updateBoard(number int) {
@@ -125,8 +120,7 @@ func (b Board) isWinner() bool {
 	return false
 }
 
-func (b Board) countPoints() int {
-	var points int
+func (b Board) countPoints() (points int) {
 	for _, x := range b.grid {
 		for _, y := range x {
 			if y.drawn == false {
@@ -134,5 +128,5 @@ func (b Board) countPoints() int {
 			}
 		}
 	}
-	return points
+	return
 }
