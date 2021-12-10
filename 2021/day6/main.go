@@ -9,22 +9,22 @@ import (
 
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(80, strings.Split(lines[0], ",")))
-	fmt.Println("Part 2. :", pt2(256, strings.Split(lines[0], ",")))
+	lanternfishs := helpers.ToIntSlice(strings.Split(lines[0], ","))
+	fmt.Println("Part 1. :", pt1(80, lanternfishs))
+	fmt.Println("Part 2. :", pt2(256, lanternfishs))
 }
 
 // This is the bruteforce solution
-func pt1(days int, lines []string) int {
-	lanternfishs := helpers.ToIntSlice(lines)
+func pt1(days int, lanternfishs []int) int {
 	for i := 0; i < days; i++ {
 		var acc []int
-		for i := 0; i < len(lanternfishs); i++ {
-			if lanternfishs[i] == 0 {
-				lanternfishs[i] = 6
+		for j := range lanternfishs {
+			if lanternfishs[j] == 0 {
+				lanternfishs[j] = 6
 				acc = append(acc, 8)
 				continue
 			}
-			lanternfishs[i]--
+			lanternfishs[j]--
 		}
 		lanternfishs = append(lanternfishs, acc...)
 	}
@@ -32,28 +32,28 @@ func pt1(days int, lines []string) int {
 }
 
 // It solves the same problem but with a better complexity
-func pt2(days int, lines []string) int {
+func pt2(days int, lines []int) int {
 	lanternfishs := make(map[int]int)
-	for _, v := range helpers.ToIntSlice(lines) {
+	for _, v := range lines {
 		lanternfishs[v]++
 	}
 
 	for i := 0; i < days; i++ {
-		m := make(map[int]int)
-		for k, v := range lanternfishs {
-			if k == 0 {
-				m[8] += v
-				m[6] += v
+		childs := make(map[int]int)
+		for timer, amount := range lanternfishs {
+			if timer == 0 {
+				childs[8] += amount
+				childs[6] += amount
 				continue
 			}
-			m[k-1] += v
+			childs[timer-1] += amount
 		}
-		lanternfishs = m
+		lanternfishs = childs
 	}
 
 	var score int
-	for _, v := range lanternfishs {
-		score += v
+	for _, amount := range lanternfishs {
+		score += amount
 	}
 
 	return score
