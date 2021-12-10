@@ -1,6 +1,8 @@
 package helpers
 
 import (
+	"math"
+	"sort"
 	"strconv"
 )
 
@@ -14,6 +16,30 @@ func AbsInt(i int) int {
 func IsInt(s string) bool {
 	_, err := strconv.Atoi(s)
 	if err != nil {
+		return false
+	}
+	return true
+}
+
+func Median(n []int) int {
+	sort.Ints(n)
+	i := len(n) / 2
+	if IsOdd(n[i]) {
+		return n[i]
+	}
+	return (n[i-1] + n[i]) / 2
+}
+
+func Mean(n []int) int {
+	var total float64
+	for _, v := range n {
+		total += float64(v)
+	}
+	return int(math.Round((total/float64(len(n)) - 0.5)))
+}
+
+func IsOdd(i int) bool {
+	if i%2 == 0 {
 		return false
 	}
 	return true
