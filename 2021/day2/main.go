@@ -8,6 +8,12 @@ import (
 	"github.com/mbonnafon/AdventOfCode/helpers"
 )
 
+func main() {
+	lines, _ := helpers.StringLines("./input.txt")
+	fmt.Println("Part 1. :", pt1(lines))
+	fmt.Println("Part 2. :", pt2(lines))
+}
+
 func pt1(lines []string) int {
 	var horizontal, depth int
 	for _, line := range lines {
@@ -43,10 +49,4 @@ func pt2(lines []string) int {
 		}
 	}
 	return horizontal * depth
-}
-
-func main() {
-	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(lines))
-	fmt.Println("Part 2. :", pt2(lines))
 }
