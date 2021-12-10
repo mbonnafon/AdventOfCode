@@ -15,7 +15,7 @@ func main() {
 
 // This is the bruteforce solution
 func pt1(days int, lines []string) int {
-	lanternfishs := helpers.StringSliceToIntSlice(lines)
+	lanternfishs := helpers.ToIntSlice(lines)
 	for i := 0; i < days; i++ {
 		var acc []int
 		for i := 0; i < len(lanternfishs); i++ {
@@ -34,7 +34,7 @@ func pt1(days int, lines []string) int {
 // It solves the same problem but with a better complexity
 func pt2(days int, lines []string) int {
 	lanternfishs := make(map[int]int)
-	for _, v := range helpers.StringSliceToIntSlice(lines) {
+	for _, v := range helpers.ToIntSlice(lines) {
 		lanternfishs[v]++
 	}
 

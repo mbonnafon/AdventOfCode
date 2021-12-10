@@ -64,12 +64,12 @@ func parseInput(lines []string) (rules, ticket, []ticket) {
 		i++
 	}
 
-	myTicket := helpers.StringSliceToIntSlice(strings.Split(lines[i+2], ","))
+	myTicket := helpers.ToIntSlice(strings.Split(lines[i+2], ","))
 	i += 5
 
 	var otherTickets []ticket
 	for i < len(lines) {
-		otherTickets = append(otherTickets, helpers.StringSliceToIntSlice(strings.Split(lines[i], ",")))
+		otherTickets = append(otherTickets, helpers.ToIntSlice(strings.Split(lines[i], ",")))
 		i++
 	}
 	return rules, myTicket, otherTickets
