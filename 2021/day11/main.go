@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/mbonnafon/AdventOfCode/helpers"
 )
@@ -12,20 +11,14 @@ type Coord struct {
 }
 
 type Grid struct {
-	cells   [][]int
+	helpers.Grid
 	flashed [][]bool
-	width   int
-	height  int
-}
-
-func (g *Grid) inGrid(i, j int) bool {
-	return i >= 0 && i < g.width && j >= 0 && j < g.height
 }
 
 func (g *Grid) clearFlashed() {
-	g.flashed = make([][]bool, g.height)
-	for i := 0; i < g.width; i++ {
-		g.flashed[i] = make([]bool, g.width)
+	g.flashed = make([][]bool, g.Height)
+	for i := 0; i < g.Width; i++ {
+		g.flashed[i] = make([]bool, g.Width)
 	}
 }
 
@@ -42,22 +35,12 @@ func (g *Grid) allFlashed() bool {
 
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
-	var dumboOctopuses [][]int
-	for _, v := range lines {
-		lineInt := helpers.ToIntSlice(strings.Split(v, ""))
-		dumboOctopuses = append(dumboOctopuses, lineInt)
-	}
-	g := Grid{
-		cells:  dumboOctopuses,
-		height: len(dumboOctopuses),
-		width:  len(dumboOctopuses[0]),
-	}
-	g.clearFlashed()
-	fmt.Println("Part 1. :", pt1(100, g))
-	fmt.Println("Part 2. :", pt2(500, g))
+	fmt.Println("Part 1. :", pt1(100, Grid{helpers.ParseGrid(lines), [][]bool{}}))
+	fmt.Println("Part 2. :", pt2(500, Grid{helpers.ParseGrid(lines), [][]bool{}}))
 }
 
 func pt1(steps int, dumboOctopuses Grid) (count int) {
+	dumboOctopuses.clearFlashed()
 	for i := 0; i < steps; i++ {
 		dumboOctopuses.step1()
 		count += dumboOctopuses.step2()
@@ -78,17 +61,17 @@ func pt2(steps int, dumboOctopuses Grid) int {
 }
 
 func (g *Grid) step1() {
-	for i := 0; i < g.height; i++ {
-		for j := 0; j < g.width; j++ {
-			g.cells[i][j]++
+	for i := 0; i < g.Height; i++ {
+		for j := 0; j < g.Width; j++ {
+			g.Cells[i][j]++
 		}
 	}
 }
 
 func (g *Grid) step2() (count int) {
-	for i := 0; i < g.height; i++ {
-		for j := 0; j < g.width; j++ {
-			if g.cells[i][j] > 9 {
+	for i := 0; i < g.Height; i++ {
+		for j := 0; j < g.Width; j++ {
+			if g.Cells[i][j] > 9 {
 				count += g.makeFlash(i, j)
 			}
 		}
@@ -98,40 +81,19 @@ func (g *Grid) step2() (count int) {
 
 func (g *Grid) makeFlash(i, j int) (count int) {
 	count++
-	g.cells[i][j] = 0
+	g.Cells[i][j] = 0
 	g.flashed[i][j] = true
-	for _, c := range g.getNeigh(i, j) {
-		if g.cells[c.x][c.y] == 0 {
+	for _, c := range g.GetNeigh(i, j) {
+		x, y := c.X, c.Y
+		if g.Cells[x][y] == 0 {
 			continue
 		}
-		g.cells[c.x][c.y]++
-		if g.cells[c.x][c.y] > 9 {
-			g.cells[c.x][c.y] = 0
-			count += g.makeFlash(c.x, c.y)
+		g.Cells[x][y]++
+		if g.Cells[x][y] > 9 {
+			g.Cells[x][y] = 0
+			count += g.makeFlash(x, y)
 			continue
 		}
 	}
 	return
-}
-
-func (g *Grid) getNeigh(i, j int) []Coord {
-	if !g.inGrid(i, j) {
-		return nil
-	}
-
-	neighbors := make([]Coord, 0)
-	for dy := -1; dy <= 1; dy++ {
-		for dx := -1; dx <= 1; dx++ {
-			if dy == 0 && dx == 0 {
-				continue
-			}
-
-			p := Coord{i + dx, j + dy}
-			if g.inGrid(p.x, p.y) {
-				neighbors = append(neighbors, p)
-			}
-		}
-	}
-
-	return neighbors
 }

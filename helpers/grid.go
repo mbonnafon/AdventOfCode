@@ -11,7 +11,7 @@ type Grid struct {
 }
 
 type Coord struct {
-	x, y int
+	X, Y int
 }
 
 func (g *Grid) InGrid(i, j int) bool {
@@ -31,7 +31,7 @@ func (g *Grid) GetNeigh(i, j int) []Coord {
 			}
 
 			p := Coord{i + dx, j + dy}
-			if g.InGrid(p.x, p.y) {
+			if g.InGrid(p.X, p.Y) {
 				neighbors = append(neighbors, p)
 			}
 		}
