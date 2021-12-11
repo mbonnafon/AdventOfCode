@@ -31,8 +31,7 @@ func pt1(steps int, grid Grid) (count int) {
 func pt2(steps int, grid Grid) int {
 	for i := 1; i < steps; i++ {
 		grid.step1()
-		count := grid.step2()
-		if count == grid.Width*grid.Height {
+		if grid.step2() == grid.Width*grid.Height {
 			return i
 		}
 	}
