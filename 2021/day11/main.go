@@ -6,10 +6,6 @@ import (
 	"github.com/mbonnafon/AdventOfCode/helpers"
 )
 
-type Coord struct {
-	x, y int
-}
-
 type Grid struct {
 	helpers.Grid
 }
