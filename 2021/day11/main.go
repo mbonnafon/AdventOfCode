@@ -12,48 +12,27 @@ type Coord struct {
 
 type Grid struct {
 	helpers.Grid
-	flashed [][]bool
-}
-
-func (g *Grid) clearFlashed() {
-	g.flashed = make([][]bool, g.Height)
-	for i := 0; i < g.Width; i++ {
-		g.flashed[i] = make([]bool, g.Width)
-	}
-}
-
-func (g *Grid) allFlashed() bool {
-	for _, i := range g.flashed {
-		for _, j := range i {
-			if j == false {
-				return false
-			}
-		}
-	}
-	return true
 }
 
 func main() {
 	lines, _ := helpers.StringLines("./input.txt")
-	fmt.Println("Part 1. :", pt1(100, Grid{helpers.ParseGrid(lines), [][]bool{}}))
-	fmt.Println("Part 2. :", pt2(500, Grid{helpers.ParseGrid(lines), [][]bool{}}))
+	fmt.Println("Part 1. :", pt1(100, Grid{helpers.ParseGrid(lines)}))
+	fmt.Println("Part 2. :", pt2(500, Grid{helpers.ParseGrid(lines)}))
 }
 
-func pt1(steps int, dumboOctopuses Grid) (count int) {
-	dumboOctopuses.clearFlashed()
+func pt1(steps int, grid Grid) (count int) {
 	for i := 0; i < steps; i++ {
-		dumboOctopuses.step1()
-		count += dumboOctopuses.step2()
+		grid.step1()
+		count += grid.step2()
 	}
 	return
 }
 
-func pt2(steps int, dumboOctopuses Grid) int {
+func pt2(steps int, grid Grid) int {
 	for i := 1; i < steps; i++ {
-		dumboOctopuses.clearFlashed()
-		dumboOctopuses.step1()
-		dumboOctopuses.step2()
-		if dumboOctopuses.allFlashed() {
+		grid.step1()
+		count := grid.step2()
+		if count == grid.Width*grid.Height {
 			return i
 		}
 	}
@@ -82,7 +61,6 @@ func (g *Grid) step2() (count int) {
 func (g *Grid) makeFlash(i, j int) (count int) {
 	count++
 	g.Cells[i][j] = 0
-	g.flashed[i][j] = true
 	for _, c := range g.GetNeigh(i, j) {
 		x, y := c.X, c.Y
 		if g.Cells[x][y] == 0 {
