@@ -1,6 +1,6 @@
-package com.mbonnafon.adventofcode.year2021
+package adventofcode.year2021
 
-import com.mbonnafon.adventofcode.Puzzle
+import utils.Puzzle
 
 object Day03 extends Puzzle {
   implicit class StringToInt(s: String) {

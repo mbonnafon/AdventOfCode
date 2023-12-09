@@ -1,4 +1,4 @@
-package com.mbonnafon.adventofcode
+package utils
 
 trait Puzzle {
 

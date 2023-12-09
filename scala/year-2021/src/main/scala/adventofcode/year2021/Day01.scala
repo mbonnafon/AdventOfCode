@@ -1,6 +1,6 @@
-package com.mbonnafon.adventofcode.year2021
+package adventofcode.year2021
 
-import com.mbonnafon.adventofcode.{Puzzle, Reader}
+import utils.Puzzle
 
 object Day01 extends Puzzle {
 

@@ -1,4 +1,4 @@
-package com.mbonnafon.adventofcode
+package utils
 
 import scala.io.Source
 

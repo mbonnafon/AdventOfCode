@@ -1,17 +1,14 @@
-package com.mbonnafon.adventofcode
+package utils
 
-object Runner extends App {
+case class Day(value: Int)
+
+abstract class Runner extends App {
+
   val year = args.headOption.map(_.toInt).getOrElse(2021)
   val day = args.lift(1).map(_.toInt).getOrElse(1)
+  def puzzleMap: Map[Day, Puzzle]
 
-  def puzzleMap = Map(
-    (2021, 1) -> year2021.Day01,
-    (2021, 2) -> year2021.Day02,
-    (2021, 3) -> year2021.Day03,
-    (2021, 4) -> year2021.Day04
-  )
-
-  puzzleMap.get(year, day) match {
+  puzzleMap.get(Day(day)) match {
     case None => println(s"Puzzle for Day $day (Year $year) is not yet solved!")
     case Some(puzzle) =>
       println(s"Solving puzzle for Day $day (Year $year)")
