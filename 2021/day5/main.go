@@ -147,12 +147,11 @@ func parseVents(lines []string) []Vent {
 	return vents
 }
 
-func score(m map[string]int) int {
-	var counter int
+func score(m map[string]int) (counter int) {
 	for _, v := range m {
 		if v > 1 {
 			counter++
 		}
 	}
-	return counter
+	return
 }

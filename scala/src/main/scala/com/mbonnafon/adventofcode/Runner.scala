@@ -8,7 +8,8 @@ object Runner extends App {
     (2021, 1) -> year2021.Day01,
     (2021, 2) -> year2021.Day02,
     (2021, 3) -> year2021.Day03,
-    (2021, 4) -> year2021.Day04
+    (2021, 4) -> year2021.Day04,
+    (2021, 10) -> year2021.Day10
   )
 
   puzzleMap.get(year, day) match {

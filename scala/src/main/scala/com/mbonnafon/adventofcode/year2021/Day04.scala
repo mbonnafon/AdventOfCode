@@ -6,7 +6,7 @@ object Day04 extends Puzzle {
 
   def part1(input: List[String]): Int = {
     val draws = input.head.split(",").map(_.toInt).toList
-    val boards = input.drop(2).print(boards)
+    // val boards = input.drop(2).print(boards)
     // val game = new Game(draws, )
     return 0
   }
