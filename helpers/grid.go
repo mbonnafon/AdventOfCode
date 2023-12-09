@@ -40,6 +40,31 @@ func (g *Grid) GetNeigh(i, j int) []Coord {
 	return neighbors
 }
 
+func (g Grid) GetCoordAdjacentNoDiag(i, j int) []Coord {
+	if !g.InGrid(i, j) {
+		return nil
+	}
+
+	var neighbors []Coord
+	//up
+	if i > 0 {
+		neighbors = append(neighbors, Coord{X: i - 1, Y: j})
+	}
+	//down
+	if (i + 1) < g.Height {
+		neighbors = append(neighbors, Coord{X: i + 1, Y: j})
+	}
+	//left
+	if j > 0 {
+		neighbors = append(neighbors, Coord{X: i, Y: j - 1})
+	}
+	//right
+	if (j + 1) < g.Width {
+		neighbors = append(neighbors, Coord{X: i, Y: j + 1})
+	}
+	return neighbors
+}
+
 func (g Grid) IsSmallestComparedToNeigh(i, j int) bool {
 	ref := g.Cells[i][j]
 	//up
