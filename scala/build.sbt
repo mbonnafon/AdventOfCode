@@ -1,5 +1,22 @@
-lazy val root = (project in file("."))
-  .settings(name := "Advent of Code Scala")
-  .settings(moduleName := "advent-of-code-scala")
-  .settings(version := "0.1")
-  .settings(scalaVersion := "2.13.7")
+lazy val commonSettings = Seq(
+  scalaVersion := "2.13.12"
+)
+
+lazy val utils = project
+  .settings(commonSettings)
+
+lazy val `year-2021` = project
+  .dependsOn(utils)
+  .settings(commonSettings)
+
+lazy val `year-2023` = project
+  .dependsOn(utils)
+  .settings(commonSettings)
+
+lazy val `adventOfCode` = project
+  .in(file("."))
+  .aggregate(
+    `year-2021`,
+    `year-2023`,
+    utils
+  )
