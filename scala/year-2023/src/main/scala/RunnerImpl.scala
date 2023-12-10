@@ -7,7 +7,8 @@ object RunnerImpl extends Runner {
     Day(2) -> Day02,
     Day(4) -> Day04,
     Day(6) -> Day06,
-    Day(7) -> Day07
+    Day(7) -> Day07,
+    Day(8) -> Day08
   )
 
 }
