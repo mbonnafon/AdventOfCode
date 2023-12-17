@@ -4,7 +4,7 @@ import utils.Puzzle
 
 object Day02 extends Puzzle {
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val (horizontal, depth) = {
       input
         .foldLeft((0, 0)) { case ((horizontal, depth), command) =>
@@ -18,7 +18,7 @@ object Day02 extends Puzzle {
     horizontal * depth
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     val (horizontal, depth, _) = {
       input
         .foldLeft((0, 0, 0)) { case ((horizontal, depth, aim), command) =>

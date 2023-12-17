@@ -4,7 +4,7 @@ import utils.Puzzle
 
 object Day04 extends Puzzle {
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val draws = input.head.split(",").map(_.toInt).toList
     val boards = input.drop(2)
     print(boards)
@@ -12,7 +12,7 @@ object Day04 extends Puzzle {
     return 0
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     return 0
   }
 

@@ -32,7 +32,7 @@ object Day08 extends Puzzle {
       )
     }
   }
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val game = Game.apply(input)
     val start = "AAA"
 
@@ -60,7 +60,7 @@ object Day08 extends Puzzle {
     countGameMovement(0, game.instructions, start)
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     val game = Game.apply(input)
 
     val startWith = game.mapping.filterKeys(_.endsWith("A")).keySet.toList

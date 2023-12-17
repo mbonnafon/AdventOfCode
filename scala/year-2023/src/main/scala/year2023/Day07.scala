@@ -57,7 +57,7 @@ object Day07 extends Puzzle {
     }
   }
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val CardScores: Map[String, Int] = Map(
       "A" -> 14,
       "K" -> 13,
@@ -108,7 +108,7 @@ object Day07 extends Puzzle {
       .sum
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     val CardScores: Map[String, Int] = Map(
       "A" -> 13,
       "K" -> 12,

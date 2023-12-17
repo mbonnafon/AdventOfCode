@@ -52,7 +52,7 @@ object Day02 extends Puzzle {
     }
   }
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     input
       .map(line => Game.apply(line))
       .filterNot { game =>
@@ -64,7 +64,7 @@ object Day02 extends Puzzle {
       .sum
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     input
       .map(line => Game.apply(line))
       .map(_.colors.groupBy(_.getClass).values.map(_.maxBy(_.point)))

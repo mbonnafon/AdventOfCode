@@ -7,7 +7,7 @@ object Day03 extends Puzzle {
     def toInt(radix: Int) = Integer.parseInt(s, radix)
   }
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val gammaRate =
       input.transpose
         .map(_.groupBy(identity).maxBy(_._2.size)._1)
@@ -23,7 +23,7 @@ object Day03 extends Puzzle {
     gammaRate * epsilonRate
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     // TODO
     print(input.transpose)
     return 0

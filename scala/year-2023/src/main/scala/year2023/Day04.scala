@@ -42,7 +42,7 @@ object Day04 extends Puzzle {
     }
   }
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     input
       .map(Card.apply(_))
       .map(card => card.myNumbers.filter(x => card.winningNumbers.contains(x)))
@@ -51,7 +51,7 @@ object Day04 extends Puzzle {
       .sum
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     var acc: Map[Int, Int] = Map.empty
     input
       .map(Card.apply(_))

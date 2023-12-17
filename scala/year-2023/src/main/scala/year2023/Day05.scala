@@ -3,7 +3,7 @@ package year2023
 import utils.Puzzle
 
 object Day05 extends Puzzle {
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val seeds = input.head.split(":").last.split(" ").toList.drop(1)
     val mapping: Map[String, List[String]] = input
       .drop(1)
@@ -67,7 +67,7 @@ object Day05 extends Puzzle {
 
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     1
   }
 

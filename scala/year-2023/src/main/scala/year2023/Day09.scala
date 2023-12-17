@@ -5,7 +5,7 @@ import utils.Puzzle
 import scala.annotation.tailrec
 
 object Day09 extends Puzzle {
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val ref = input.map(_.split(" ").map(_.toInt).toSeq)
 
     val toPrediction: Seq[Int] => Seq[Int] = input =>
@@ -23,7 +23,7 @@ object Day09 extends Puzzle {
     ref.map(predict(_)).sum
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     val ref = input.map(_.split(" ").map(_.toInt).toSeq)
 
     val toPrediction: Seq[Int] => Seq[Int] = input =>

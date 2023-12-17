@@ -6,7 +6,7 @@ import scala.Console.println
 import scala.util.matching.Regex
 
 object Day01 extends Puzzle {
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     input
       .map(a => a.filter(_.isDigit))
       .map { a =>
@@ -20,7 +20,7 @@ object Day01 extends Puzzle {
       .sum
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     val mapping = Map(
       "one" -> "1",
       "two" -> "2",

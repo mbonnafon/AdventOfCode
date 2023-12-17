@@ -17,7 +17,7 @@ object Day03 extends Puzzle {
     (0, 1)
   )
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     val matrix: Vector[Vector[String]] =
       input.toVector.map(_.map(_.toString).toVector)
 
@@ -56,7 +56,7 @@ object Day03 extends Puzzle {
     sum
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
 
     val matrix: Vector[Vector[String]] =
       input.toVector.map(_.map(_.toString).toVector)

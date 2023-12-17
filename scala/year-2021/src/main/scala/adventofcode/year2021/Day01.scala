@@ -4,7 +4,7 @@ import utils.Puzzle
 
 object Day01 extends Puzzle {
 
-  def part1(input: List[String]): Int =
+  def part1(input: List[String]): Long =
     input
       .map(_.toInt)
       .sliding(2)
@@ -13,7 +13,7 @@ object Day01 extends Puzzle {
         case _                 => 0
       }
 
-  def part2(input: List[String]): Int =
+  def part2(input: List[String]): Long =
     input
       .map(_.toInt)
       .sliding(3)

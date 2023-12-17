@@ -9,7 +9,7 @@ import scala.math.pow
 
 object Day06 extends Puzzle {
 
-  def part1(input: List[String]): Int = {
+  def part1(input: List[String]): Long = {
     input
       .map(line => line.split(" ").drop(1).filter(_.nonEmpty))
       .transpose // List(7, 9)
@@ -30,7 +30,7 @@ object Day06 extends Puzzle {
 
   }
 
-  def part2(input: List[String]): Int = {
+  def part2(input: List[String]): Long = {
     val race = input
       .map(_.split(":").last.trim.split(" ").mkString)
 
