@@ -58,7 +58,7 @@ object Day11 extends Puzzle {
     val dists = for {
       (id1, cdx1) <- idxCoord.toList
       (id2, cdx2) <- idxCoord.toList
-      if id1 < id2 // Avoid calculatin the dist twice for a same pair
+      if id1 < id2 // Avoid calculating the dist twice for a same pair
     } yield (manhattan(2, lineIndexes, columnIndexes, cdx1, cdx2))
     dists.sum
   }
@@ -79,7 +79,7 @@ object Day11 extends Puzzle {
     val dists = for {
       (id1, cdx1) <- idxCoord.toList
       (id2, cdx2) <- idxCoord.toList
-      if id1 < id2 // Avoid calculatin the dist twice for a same pair
+      if id1 < id2 // Avoid calculating the dist twice for a same pair
     } yield (manhattan(1000000, lineIndexes, columnIndexes, cdx1, cdx2))
 
     dists.map(_.toLong).sum
