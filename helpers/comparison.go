@@ -14,7 +14,7 @@ func Min(s []int) int {
 	return min
 }
 
-func Max(s []int) int {
+func MaxS(s []int) int {
 	var max int
 	for i, v := range s {
 		if i == 0 {

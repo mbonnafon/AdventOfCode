@@ -6,6 +6,13 @@ import (
 	"strconv"
 )
 
+func Max(i, j int) int {
+	if i > j {
+		return i
+	}
+	return j
+}
+
 func AbsInt(i int) int {
 	if i < 0 {
 		return -i

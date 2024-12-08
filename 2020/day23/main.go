@@ -21,7 +21,7 @@ func main() {
 func pt1(input string) string {
 	cups := setGame(input, false)
 	head, labelPtr := createCircularLinkedList(cups)
-	playMoves(100, head, helpers.Min(cups), helpers.Max(cups), labelPtr)
+	playMoves(100, head, helpers.Min(cups), helpers.MaxS(cups), labelPtr)
 
 	//Starting after the cup labeled 1
 	var finalOrder string
@@ -39,7 +39,7 @@ func pt1(input string) string {
 func pt2(input string) int {
 	cups := setGame(input, true)
 	head, labelPtr := createCircularLinkedList(cups)
-	playMoves(10000000, head, helpers.Min(cups), helpers.Max(cups), labelPtr)
+	playMoves(10000000, head, helpers.Min(cups), helpers.MaxS(cups), labelPtr)
 	return labelPtr[1].next.val * labelPtr[1].next.next.val
 }
 
@@ -50,7 +50,7 @@ func setGame(input string, part2 bool) []int {
 		circle = append(circle, label)
 	}
 	if part2 {
-		for i := helpers.Max(circle) + 1; i <= 1000000; i++ {
+		for i := helpers.MaxS(circle) + 1; i <= 1000000; i++ {
 			circle = append(circle, i)
 		}
 	}
